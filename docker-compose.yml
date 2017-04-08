@@ -1,0 +1,18 @@
+postgres:
+  image: postgres:9.4
+  environment:
+    POSTGRES_PASSWORD: only4MIWOsStaff
+    POSTGRES_USER: hotelmiwo
+  volumes:
+    - ./src/main/resources/script.sql:/docker-entrypoint-initdb.d/init.sql
+  ports:
+    - "5432:5432"
+server:
+  image: springio/hotel-miwo-server
+  ports:
+    - "8080:8080"
+    - "8787:8787"
+    - "9990:9990"
+    - "9999:9999"
+  links:
+    - postgres
